@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    /* justify-content: center; */
+    gap: 30px;
+}
+
+.form input, .form textarea, .form select{
+    padding: 20px;
+    background-color: var(--bgSoft);
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+}
+
+.form button{
+    padding: 20px;
+    cursor: pointer;
+    /* background-color: var(--bgSoft); */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}

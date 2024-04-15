@@ -1,0 +1,91 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Member {
+  id              String          @id @default(uuid())
+  profile         MemberProfile   @relation(fields: [profileID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profileID       String          @unique
+  email           String          @unique
+  password        String
+  student_id      String          @unique
+  membership_type MemberType      
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model MemberProfile {
+  id              String             @id @default(uuid())
+  Member          Member?
+  f_name          String
+  l_name          String
+  major           String
+  college_year    CollegeYear
+  shirt_size      ShirtSize
+  due_status      Boolean         
+  transactions    Transactions[]
+}
+
+model Event {
+  id          String              @id @default(uuid())
+  title       String
+  description String
+  location    String
+  date        DateTime
+  image_loc   String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+model Transactions {
+  id                String            @id @default(uuid())
+  member            MemberProfile     @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  member_id         String
+  merch             Merch             @relation(fields: [merch_id], references: [id], onDelete: Restrict)
+  merch_id          String
+  costPaidInCents   Int
+  item              String
+}
+
+model Merch {
+  id            String            @id @default(uuid())
+  title         String
+  description   String
+  costInCents   Int
+  stock         Int
+  image_loc     String?
+  transactions  Transactions[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum MemberType {
+    GENERAL
+    ALUMNI
+    ADMIN
+}
+
+enum CollegeYear {
+    FRESHMAN
+    SOPHOMORE
+    JUNIOR
+    SENIOR
+    SUPERSENIOR
+    ALUMNI
+}
+
+enum ShirtSize {
+    XS
+    S
+    M
+    L
+    XL
+}
