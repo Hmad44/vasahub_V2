@@ -1,4 +1,4 @@
-import MerchCard from '@/app/ui/merchCard/merchCard'
+import MerchCard from '@/app/ui/merch/merchCard'
 import styles from './merch.module.css'
 import { getMerchs } from '@/app/lib/data'
 
