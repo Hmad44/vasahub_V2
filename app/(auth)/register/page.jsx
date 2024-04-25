@@ -6,7 +6,7 @@ const RegisterPage = () => {
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
-            <h5>Only for students of the University of Mississippi</h5>
+            <h5>Only for students of the University of Mississippi!</h5>
                 <RegisterForm/>
             </div>
         </div>

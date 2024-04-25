@@ -4,6 +4,7 @@ import { useState } from "react"
 import { handleLogout } from "@/app/lib/action"
 import styles from './links.module.css'
 import NavLink from "./navLink/navLink"
+import { MemberType } from "@prisma/client"
 
 const links = [
     {
@@ -23,10 +24,6 @@ const links = [
         path: "/merch"
     },
     {
-        title: "Contact",
-        path: "/contact"
-    },
-    {
         title: "Register",
         path: "/register"
     },
@@ -36,25 +33,18 @@ const Links = ({session}) => {
 
     const [open, setOpen] = useState(false)
 
-    //Temp
-    const isAdmin = true
-
     return (
         <div className={styles.container}>
             <div className={styles.links}>
-                {links.map((link=> (
-                    <NavLink item={link} key={link.title} />
-                )))}
+                {links.map((link=> (<NavLink item={link} key={link.title} />)))}
                 {session?.user ? (
                     <>
-                        {session.user?.isAdmin && (<NavLink item={{title: "Admin", path: "/dashboard"}}/>)}
+                        {session.user?.membership_type === MemberType.ADMIN && (<NavLink item={{title: "Admin", path: "/dashboard"}}/>)}
                         <form action={handleLogout}>
                             <button className={styles.logout}>Logout</button>
                         </form>
                     </>
-                ) : (
-                    <NavLink item={{title: "Login", path: "/login"}}/>
-                )} 
+                ) : (<NavLink item={{title: "Login", path: "/login"}}/>)}
             </div>
             <button className={styles.menuButton} onClick={() => setOpen(prev => !prev)}>Menu</button>
             {open && ( 

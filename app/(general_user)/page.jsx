@@ -8,8 +8,8 @@ const AboutPage = () => {
             <div className={styles.textContainer}>
                 <h1 className={styles.title}>Ole Miss Vietnamese American Student Association</h1>
                 <p className={styles.desc}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut ligula consectetur, congue magna eu, pellentesque velit. Mauris facilisis tempus erat, a vulputate nisl lacinia sit amet. Nam commodo ullamcorper lacus vitae vehicula. Suspendisse eu placerat libero, eu fringilla odio. Donec non nisl purus. Vestibulum in lacus vitae augue venenatis tristique.
-                </p>
+                The Ole Miss Vietnamese American Student Association (OleVASA) was created in order to promote an understanding of the Vietnamese culture within the university and the community at large, to develop and execute programs to support the interests of the university student bodies, to provide opportunities for greater expression of the Vietnamese culture, and to represent Vietnamese students at the University of Mississippi.</p>
+                <p className={styles.desc}>At the OleVasa Hub website, you can view our regular yearly events and view our upcoming events in the current semester. If you are a current member of the University of Mississippi, you can also create an account and officially join our club.</p>
                 <div className={styles.buttons}>
                     <Link href="./register">
                         <button className={styles.button}>Register</button>
@@ -19,7 +19,7 @@ const AboutPage = () => {
                     </Link>
                 </div>
                 <div className={styles.socials}>
-                    <Link href="https://linktr.ee/">
+                    <Link href="https://linktr.ee/ole_vasa">
                         <Image src="https://www.childcareawareky.org/wp-content/uploads/2022/06/Linktree.png" fill className={styles.social}/>
                     </Link>
                     {/* <Link href="https://www.instagram.com/ole_vasa/">

@@ -113,7 +113,7 @@ const UsersPage = async ({searchParams}) => {
                             <td>{member.updatedAt.toLocaleDateString()}<br/>{member.updatedAt.toLocaleTimeString()}</td>
                             <td>
                                 <div className={styles.buttons}>
-                                    <Link href={`/dashboard/users/${member.id}`}>
+                                    <Link href={`/dashboard/users/${encodeURIComponent(member.id)}`}>
                                         <button className={`${styles.button} ${styles.view}`}>View</button>
                                     </Link>
                                     <form action={deleteMember}>

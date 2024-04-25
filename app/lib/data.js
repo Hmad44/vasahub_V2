@@ -21,6 +21,9 @@ export const getMerchs = async () => {
     try {
         const merchs = await prisma.$transaction([
             prisma.Merch.findMany({
+                where :{
+                    isAvailable: true
+                },
                 orderBy: {
                     title: 'asc'
                 },

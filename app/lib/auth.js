@@ -3,9 +3,6 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt'
 import { authConfig } from "./auth.config";
 
-// const salt = await bcrypt.genSalt(10)
-// const hashedPwd = await bcrypt.hash(password, salt)
-
 const login = async (credentials) => {
     try {
         const user = await prisma.$transaction([

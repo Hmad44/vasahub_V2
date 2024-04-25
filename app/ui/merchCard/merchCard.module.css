@@ -42,3 +42,13 @@
     color: gray;
     width: 90%;
 }
+
+.buy {
+    padding: 5px;
+    cursor: pointer;
+    border: none;
+    width: 25%;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #5d57c9;
+}

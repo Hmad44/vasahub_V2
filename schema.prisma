@@ -60,7 +60,7 @@ model Merch {
   title         String
   description   String
   costInCents   Int
-  stock         Int
+  isAvailable   Boolean           @default(false)
   image_loc     String?
   transactions  Transactions[]
   createdAt     DateTime          @default(now())

@@ -25,6 +25,10 @@
     
 }
 
+.form input::placeholder{
+    color: rgb(70, 173, 180);
+}
+
 .form label{
     font-size: 12px;
 }

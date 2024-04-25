@@ -21,7 +21,10 @@ async function getMerch(id){
 
 async function updateMerch(formData) {
     "use server"
-    const { id, title, cost, stock, description } = Object.fromEntries(formData);
+    const { id, title, cost, isAvailable, description } = Object.fromEntries(formData);
+
+    let isAvailable_bool = (isAvailable === 'true')
+    console.log(isAvailable_bool)
 
     try {
         await prisma.$transaction([
@@ -31,8 +34,8 @@ async function updateMerch(formData) {
                 },
                 data: {
                     title: title || undefined,
-                    costInCents: parseInt(cost)*100 || undefined,
-                    stock: parseInt(stock) || undefined,
+                    costInCents: Number(cost)*100 || undefined,
+                    isAvailable: isAvailable_bool,
                     description: description || undefined
                 }
             })
@@ -56,8 +59,11 @@ const ViewUserPage = async ({params}) => {
                 <input type="text" name="title" placeholder={merch.title} />
                 <label>Cost</label>
                 <input type="number" name="cost" placeholder={merch.costInCents/100} />
-                <label>Stock</label>
-                <input type="number" name="stock" placeholder={merch.stock} />
+                <label>Availability</label>
+                    <select name="isAvailable" id="isAvailable">
+                        <option value={true} selected={merch.isAvailable == true}>Available</option>
+                        <option value={false} selected={merch.isAvailable == false}>Not Available</option>
+                    </select>
                 <label>Description</label>
                 <textarea 
                     name="description" 

@@ -2,7 +2,6 @@ import styles from "./sidebar.module.css"
 import MenuLink from "./menuLink/menuLink"
 import Image from "next/image";
 import { auth, signOut } from "@/app/lib/auth";
-// import { handleLogout } from "@/app/lib/action";
 import {MdDashboard, MdSupervisedUserCircle, MdAttachMoney, MdLogout} from "react-icons/md";
 
 const menuItems = [
@@ -45,7 +44,7 @@ const Sidebar = async () => {
     return (
         <div className={styles.container}>
             <div className={styles.user}>
-                <Image className={styles.userImage} src="/avatar.png" alt="" width="50" height="50"/>
+                <Image className={styles.userImage} src="/noavatar.png" alt="" width="50" height="50"/>
                 <div className={styles.userDetail}>
                     <span className={styles.username}>Administrator</span>
                 </div>

@@ -37,7 +37,7 @@ async function updateMember(formData) {
 
     let due_status_bool = (due_status === 'true')
 
-    try {
+    // try {
         await prisma.$transaction([
             prisma.Member.update({
                 where: {
@@ -46,9 +46,6 @@ async function updateMember(formData) {
                 data: {
                     profile: {
                         update: {
-                            where: {
-                                f_name: "Ahmed"
-                            },
                             data: {
                                 f_name: fname || undefined,
                                 l_name: lname || undefined,
@@ -66,10 +63,10 @@ async function updateMember(formData) {
                 }
             })
         ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to update member")
-    }
+    // } catch(err) {
+    //     console.log(err)
+    //     throw new Error("Failed to update member")
+    // }
     revalidatePath("/dashboard/users")
     redirect("/dashboard/users")  
 }

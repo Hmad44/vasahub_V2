@@ -81,7 +81,7 @@ const EventPage = async({searchParams}) => {
                         <td>
                             <div className={styles.event}>
                                 <Image
-                                    src={event.image_loc || "/noproduct.png"}
+                                    src={event.image_loc || "/No-Image-Placeholder.png"}
                                     alt=""
                                     width={40}
                                     height={40}

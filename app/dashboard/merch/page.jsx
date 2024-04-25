@@ -13,7 +13,7 @@ async function getMerch(q, page){
             prisma.Merch.count(),
             prisma.Merch.findMany({
                 orderBy: {
-                    stock: "asc"
+                    createdAt: "asc"
                 },
                 skip: (ITEMS_PER_PAGE * (page-1)),
                 take: ITEMS_PER_PAGE,
@@ -70,7 +70,7 @@ const MerchPage = async({searchParams}) => {
                         <td>Title</td>
                         <td>Cost</td>
                         <td>Description</td>
-                        <td>Stock</td>
+                        <td>Availability</td>
                         <td>Created At</td>
                         <td>Updated At</td>
                     </tr>
@@ -92,7 +92,7 @@ const MerchPage = async({searchParams}) => {
                         </td>
                         <td>${merch.costInCents/100}</td>
                         <td>{merch.description}</td>
-                        <td>{merch.stock}</td>
+                        <td>{merch.isAvailable ? "Available" : "Not Available"}</td>
                         <td>{merch.createdAt.toLocaleDateString()}<br/>{merch.createdAt.toLocaleTimeString()}</td>
                         <td>{merch.updatedAt.toLocaleDateString()}<br/>{merch.updatedAt.toLocaleTimeString()}</td>
                         <td>
