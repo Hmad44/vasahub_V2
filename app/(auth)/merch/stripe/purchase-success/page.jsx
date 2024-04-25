@@ -1,6 +1,7 @@
 import Image from "next/image"
 import styles from "./purchase-success.module.css"
 import Stripe from "stripe"
+import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 

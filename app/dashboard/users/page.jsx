@@ -15,9 +15,6 @@ async function getMembers(q, page){
                 take: ITEMS_PER_PAGE,
                 orderBy: {
                     profile: {
-                        f_name:'asc'
-                    },
-                    profile: {
                         l_name: 'asc'
                     }
                 },

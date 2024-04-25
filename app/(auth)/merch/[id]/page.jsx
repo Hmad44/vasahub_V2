@@ -1,7 +1,7 @@
-import styles from "@/app/ui/dashboard/merch/purchaseMerch/purchaseMerch.module.css"
 import Stripe from "stripe"
 import { auth } from "@/app/lib/auth"
 import CheckoutForm from "@/app/ui/checkoutForm/checkoutForm"
+import prisma from "@/lib/prisma"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
