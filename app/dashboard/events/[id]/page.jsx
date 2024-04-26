@@ -1,53 +1,10 @@
 import styles from "@/app/ui/dashboard/events/viewEvent/viewEvent.module.css"
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import prisma from '@/lib/prisma.js'
-
-async function getEvent(id){
-    try {
-        const event = await prisma.$transaction([
-            prisma.Event.findUnique({
-                where: {
-                    id: id
-                },
-            })  
-        ])
-        return event[0];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to find event")
-    }
-}
-
-async function updateEvent(formData) {
-    "use server"
-    const { id, title, location, date, description } = Object.fromEntries(formData);
-    
-    // try {
-        await prisma.$transaction([
-            prisma.Event.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    title: title || undefined,
-                    location: location || undefined,
-                    date: new Date(date) || undefined,
-                    description: description || undefined
-                }
-            })
-        ])
-    // } catch(err) {
-    //     console.log(err)
-    //     throw new Error("Failed to update event")
-    // }
-    revalidatePath("/dashboard/events")
-    redirect("/dashboard/events")  
-}
+import { getSingleEvent } from "@/app/lib/data"
+import { updateEvent } from "@/app/lib/action"
 
 const ViewUserPage = async ({params}) => {
     const { id } = params;
-    const event = await getEvent(id)
+    const event = await getSingleEvent(id)
     return (
         <div className={styles.container}>
             <form action={updateEvent} className={styles.form}>

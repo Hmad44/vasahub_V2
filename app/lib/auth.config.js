@@ -21,7 +21,6 @@ export const authConfig = {
             return session
         },
         authorized({auth,request}){
-            // console.log(auth)
             const user = auth?.user
             const isOnDashboard = request.nextUrl?.pathname.startsWith("/dashboard")
             const isOnMerchPage = request.nextUrl?.pathname.startsWith("/merch")

@@ -1,79 +1,11 @@
 import styles from "@/app/ui/dashboard/users/viewUser/viewUser.module.css"
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { MemberType, CollegeYear, ShirtSize } from "@prisma/client";
-import bcrypt from 'bcrypt'
-import prisma from '@/lib/prisma.js'
-
-async function getMember(id){
-    try {
-        const member = await prisma.$transaction([
-            prisma.Member.findUnique({
-                include: {
-                    profile: true
-                },
-                where: {
-                    id: id
-                },
-            })  
-        ])
-        return member[0];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to find member")
-    }
-}
-
-async function updateMember(formData) {
-    "use server"
-    const { id, fname, lname, password, studentID, email, membership_type, college_year, shirt_size, due_status, major } = Object.fromEntries(formData);
-
-    const salt = await bcrypt.genSalt(10)
-    let hashedPwd = await bcrypt.hash(password, salt)
-    
-    if (password == "" || password == null) {
-        hashedPwd = ""
-    }
-
-    let due_status_bool = (due_status === 'true')
-
-    // try {
-        await prisma.$transaction([
-            prisma.Member.update({
-                where: {
-                    id: id
-                },
-                data: {
-                    profile: {
-                        update: {
-                            data: {
-                                f_name: fname || undefined,
-                                l_name: lname || undefined,
-                                major: major || undefined,
-                                college_year: college_year,
-                                shirt_size: shirt_size,
-                                due_status: due_status_bool,
-                            }
-                        }
-                    },
-                    email: email || undefined,
-                    password: hashedPwd || undefined,
-                    student_id: studentID || undefined,
-                    membership_type: membership_type
-                }
-            })
-        ])
-    // } catch(err) {
-    //     console.log(err)
-    //     throw new Error("Failed to update member")
-    // }
-    revalidatePath("/dashboard/users")
-    redirect("/dashboard/users")  
-}
+import { getSingleMember } from "@/app/lib/data";
+import { updateMember } from "@/app/lib/action";
 
 const ViewUserPage = async ({params}) => {
     const { id } = params;
-    const member = await getMember(id)
+    const member = await getSingleMember(id)
     return (
         <div className={styles.container}>
             <form action={updateMember} className={styles.form}>

@@ -1,29 +1,5 @@
-import prisma from '@/lib/prisma.js'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import styles from '@/app/ui/dashboard/events/addEvent/addEvent.module.css'
-
-async function addEvent(formData) {
-    "use server"
-    const { title, location, date, description } = Object.fromEntries(formData);
-    try {
-        await prisma.$transaction([
-            prisma.Event.create({
-                data: {
-                    title: title,
-                    description: description,
-                    location: location,
-                    date: new Date(date),
-                }
-            })
-        ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to create event")
-    }
-    revalidatePath("/dashboard/events")
-    redirect("/dashboard/events")
-}
+import { addEvent } from '@/app/lib/action'
 
 const addEventPage = () => {
     return (

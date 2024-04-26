@@ -1,9 +1,9 @@
 import MerchCard from '@/app/ui/merch/merchCard'
 import styles from './merch.module.css'
-import { getMerchs } from '@/app/lib/data'
+import { getMerch } from '@/app/lib/data'
 
 const MerchPage = async () => {
-    const merchs = await getMerchs()
+    const merchs = await getMerch()
     return (
         <div className={styles.container}>
             {merchs.map(merch => (

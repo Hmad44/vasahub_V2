@@ -1,60 +1,16 @@
-import prisma from '@/lib/prisma.js'
 import styles from '@/app/ui/dashboard/events/events.module.css'
 import Paging from '@/app/ui/paging/paging'
 import Search from '@/app/ui/search/search'
-import { revalidatePath } from 'next/cache'
 import Link from "next/link"
 import Image from "next/image"
-
-async function getEvents(q, page){
-    const ITEMS_PER_PAGE = 2
-    try {
-        const [count, events] = await prisma.$transaction([
-            prisma.Event.count(),
-            prisma.Event.findMany({
-                orderBy: {
-                    date: 'asc'
-                },
-                skip: (ITEMS_PER_PAGE * (page-1)),
-                take: ITEMS_PER_PAGE,
-                where: {
-                    title: {
-                        contains: `%${q}%`,
-                        mode: 'insensitive'
-                    }
-                }
-            })
-        ])
-        return [count, events];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to view event")
-    }
-}
-
-async function deleteEvent(formData) {
-    "use server"
-    const { id } = Object.fromEntries(formData);
-    // try {
-        await prisma.$transaction([
-            prisma.Event.delete({
-                where: {
-                    id: id
-                }
-            })
-        ])
-    // } catch(err) {
-    //     console.log(err)
-    //     throw new Error("Failed to delete event")
-    // }
-    revalidatePath("/dashboard/events")
-}
+import { getAllEvent } from '@/app/lib/data'
+import { deleteEvent } from '@/app/lib/action'
 
 const EventPage = async({searchParams}) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    const [count, events] = await getEvents(q, page)
+    const [count, events] = await getAllEvent(q, page)
 
     return (
         <div className={styles.container}>

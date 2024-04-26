@@ -4,7 +4,6 @@ import { getEvents } from '@/app/lib/data'
 
 const UpcomingPage = async () => {
     const events = await getEvents()
-    // console.log(events)
     return (
         <div className={styles.container}>
             {events.map(event => (

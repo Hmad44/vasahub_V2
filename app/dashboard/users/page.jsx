@@ -1,76 +1,15 @@
-import prisma from '@/lib/prisma.js'
 import styles from '@/app/ui/dashboard/users/users.module.css'
-import { revalidatePath } from 'next/cache'
 import Paging from '@/app/ui/paging/paging'
 import Search from '@/app/ui/search/search'
 import Link from "next/link"
-
-async function getMembers(q, page){
-    const ITEMS_PER_PAGE = 2
-    try {
-        const [count, members] = await prisma.$transaction([
-            prisma.Member.count(),
-            prisma.Member.findMany({
-                skip: (ITEMS_PER_PAGE * (page-1)),
-                take: ITEMS_PER_PAGE,
-                orderBy: {
-                    profile: {
-                        l_name: 'asc'
-                    }
-                },
-                where: {
-                    profile: {
-                        OR: [
-                            {
-                                f_name: {
-                                    contains: `%${q}%`,
-                                    mode: 'insensitive'
-                                }
-                            },
-                            {
-                                l_name: {
-                                    contains: `%${q}%`,
-                                    mode: 'insensitive'
-                                }
-                            }
-                        ],
-                    }
-                },
-                include: {
-                    profile: true
-                },  
-            })  
-        ])
-        return [count, members];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to view user")
-    }
-}
-
-async function deleteMember(formData) {
-    "use server"
-    const { id } = Object.fromEntries(formData);
-    try {
-        await prisma.$transaction([
-            prisma.MemberProfile.delete({
-                where: {
-                    id: id
-                }
-            })
-        ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to delete member")
-    }
-    revalidatePath("/dashboard/users")
-}
+import { getAllMembers } from '@/app/lib/data'
+import { deleteMember } from '@/app/lib/action'
 
 const UsersPage = async ({searchParams}) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    const [count, members] = await getMembers(q, page)
+    const [count, members] = await getAllMembers(q, page)
 
     return (
         <div className={styles.container}>

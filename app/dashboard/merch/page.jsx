@@ -1,60 +1,16 @@
-import prisma from '@/lib/prisma.js'
 import styles from '@/app/ui/dashboard/merch/merch.module.css'
 import Paging from '@/app/ui/paging/paging'
 import Search from '@/app/ui/search/search'
-import { revalidatePath } from 'next/cache'
+import { getAllMerch } from '@/app/lib/data'
+import { deleteMerch } from '@/app/lib/action'
 import Link from "next/link"
 import Image from "next/image"
-
-async function getMerch(q, page){
-    const ITEMS_PER_PAGE = 2
-    try {
-        const [count, merchs] = await prisma.$transaction([
-            prisma.Merch.count(),
-            prisma.Merch.findMany({
-                orderBy: {
-                    createdAt: "asc"
-                },
-                skip: (ITEMS_PER_PAGE * (page-1)),
-                take: ITEMS_PER_PAGE,
-                where: {
-                    title: {
-                        contains: `%${q}%`,
-                        mode: 'insensitive'
-                    }
-                }
-            })
-        ])
-        return [count, merchs];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to view merch")
-    }
-}
-
-async function deleteMerch(formData) {
-    "use server"
-    const { id } = Object.fromEntries(formData);
-    try {
-        await prisma.$transaction([
-            prisma.Merch.delete({
-                where: {
-                    id: id
-                }
-            })
-        ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to delete merch")
-    }
-    revalidatePath("/dashboard/merch")
-}
 
 const MerchPage = async({searchParams}) => {
 
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
-    const [count, merchs] = await getMerch(q, page)
+    const [count, merchs] = await getAllMerch(q, page)
 
     return (
         <div className={styles.container}>
@@ -70,6 +26,7 @@ const MerchPage = async({searchParams}) => {
                         <td>Title</td>
                         <td>Cost</td>
                         <td>Description</td>
+                        <td>Type</td>
                         <td>Availability</td>
                         <td>Created At</td>
                         <td>Updated At</td>
@@ -81,7 +38,7 @@ const MerchPage = async({searchParams}) => {
                         <td>
                             <div className={styles.merch}>
                                 <Image
-                                    src={merch.image_loc || "/noproduct.png"}
+                                    src={merch.image_loc || "/No-Image-Placeholder.png"}
                                     alt=""
                                     width={40}
                                     height={40}
@@ -92,6 +49,7 @@ const MerchPage = async({searchParams}) => {
                         </td>
                         <td>${merch.costInCents/100}</td>
                         <td>{merch.description}</td>
+                        <td>{merch.type}</td>
                         <td>{merch.isAvailable ? "Available" : "Not Available"}</td>
                         <td>{merch.createdAt.toLocaleDateString()}<br/>{merch.createdAt.toLocaleTimeString()}</td>
                         <td>{merch.updatedAt.toLocaleDateString()}<br/>{merch.updatedAt.toLocaleTimeString()}</td>

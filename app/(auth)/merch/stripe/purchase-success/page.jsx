@@ -1,28 +1,11 @@
 import Image from "next/image"
 import styles from "./purchase-success.module.css"
 import Stripe from "stripe"
-import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { getSingleMerch } from "@/app/lib/data"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
-async function getMerch(id){
-    try {
-        const merch = await prisma.$transaction([
-            prisma.Merch.findUnique({
-                where: {
-                    id: id
-                },
-            })  
-        ])
-        return merch[0];
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to find merch")
-    }
-}
-
 
 export default async function PaymentSuccessPage({searchParams}) {
 
@@ -32,7 +15,7 @@ export default async function PaymentSuccessPage({searchParams}) {
         return notFound()
     }
 
-    const product = await getMerch(paymentIntent.metadata.productID)
+    const product = await getSingleMerch(paymentIntent.metadata.productID)
     if (product == null) {
         return notFound()
     }

@@ -1,37 +1,23 @@
-import prisma from '@/lib/prisma.js'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import styles from '@/app/ui/dashboard/merch/addMerch/addMerch.module.css'
-
-async function addMerch(formData) {
-    "use server"
-    const { title, description, cost, stock } = Object.fromEntries(formData);
-    try {
-        await prisma.$transaction([
-            prisma.Merch.create({
-                data: {
-                    title: title,
-                    description: description,
-                    costInCents: cost*100,
-                    stock: parseInt(stock),
-                }
-            })
-        ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to create merch")
-    }
-    revalidatePath("/dashboard/merch")
-    redirect("/dashboard/merch")
-}
+import { addMerch } from '@/app/lib/action'
+import { MerchType } from '@prisma/client'
 
 const AddMerchPage = () => {
     return (
         <div className={styles.container}>
             <form action={addMerch} className={styles.form}>
                 <input type="text" placeholder='Title' name='title' required />
-                <input type="number" placeholder='Stock' name='stock' required />
                 <input type="number" placeholder='Cost' name='cost' required />
+                <select name='type'>
+                    <option value="" disabled>Choose type of product</option>
+                    <option value={MerchType.MERCH}>Merchandise</option>
+                    <option value={MerchType.DUES}>Dues</option>
+                </select>
+                <select name='isAvailable'>
+                    <option value="" disabled>Choose Availability</option>
+                    <option value={false}>Not Available</option>
+                    <option value={true}>Available</option>
+                </select>
                 <textarea  
                     id="desc" 
                     rows="16" 

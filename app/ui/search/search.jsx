@@ -24,8 +24,6 @@ const Search = ({placeholder}) => {
         replace(`${pathName}?${params}`);
     },250);
 
-    // console.log(pathName)
-
     return (
         <div className={styles.container}>
             <MdSearch/>
