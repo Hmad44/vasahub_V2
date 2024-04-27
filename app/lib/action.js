@@ -348,7 +348,7 @@ export const login = async (previousState, formData) => {
     const { email, password } = Object.fromEntries(formData);
 
     try {
-        await signIn("credentials", {email, password})
+        await signIn("credentials", { callbackUrl: '/', email, password})
     } catch(err) {
         console.log(err)
         if (err.message.includes("credentials")) {
