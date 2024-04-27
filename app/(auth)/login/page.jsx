@@ -1,4 +1,3 @@
-import { login } from "@/app/lib/action"
 import LoginForm from "@/app/ui/loginForm/loginForm"
 import styles from "./login.module.css"
 

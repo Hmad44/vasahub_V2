@@ -56,12 +56,6 @@ const Sidebar = async () => {
                     </li>
                 ))}
             </ul>
-            {/* <form action={handleLogout}>
-                <button className={styles.logout}>
-                    <MdLogout/>
-                    Logout
-                </button>
-            </form> */}
         </div>
     )
 }
