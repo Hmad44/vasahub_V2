@@ -13,7 +13,7 @@ const LoginForm = () => {
     const router = useRouter()
 
     useEffect(() => {
-        state?.success && router.push(`${NEXT_PUBLIC_SERVER_URL}/login`)
+        state?.success && router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/login`)
     },[state?.success, router])
 
     return (
