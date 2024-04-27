@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { signIn, signOut } from "./auth";
-import { MemberType, ShirtSize, CollegeYear, MerchType } from '@prisma/client';
 
 export const addMember = async (previousState, formData) => {
     const { fname, lname, password, studentID, email, membershipType, collegeYear, shirtSize, dueStatus, major } = Object.fromEntries(formData);

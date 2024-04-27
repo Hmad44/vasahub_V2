@@ -1,8 +1,7 @@
 import styles from "./sidebar.module.css"
 import MenuLink from "./menuLink/menuLink"
 import Image from "next/image";
-import { auth, signOut } from "@/app/lib/auth";
-import {MdDashboard, MdSupervisedUserCircle, MdAttachMoney, MdLogout} from "react-icons/md";
+import {MdDashboard, MdSupervisedUserCircle, MdAttachMoney} from "react-icons/md";
 
 const menuItems = [
     {   
@@ -39,7 +38,6 @@ const menuItems = [
 
 const Sidebar = async () => {
 
-    const session = await auth();
     return (
         <div className={styles.container}>
             <div className={styles.user}>

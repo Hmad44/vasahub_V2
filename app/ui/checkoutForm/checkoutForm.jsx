@@ -5,7 +5,6 @@ import styles from "./checkoutForm.module.css"
 import { loadStripe } from "@stripe/stripe-js"
 import Image from "next/image"
 import { useState } from "react"
-import { orderHasStock } from "@/app/lib/action"
 
 const currencyFormat = new Intl.NumberFormat('en-US', {
     style: 'currency',
