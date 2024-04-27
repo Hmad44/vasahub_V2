@@ -272,6 +272,8 @@ export const updateMerch = async (formData) => {
 export const handleLogout = async () => {
     "use server"
     await signOut({ callbackUrl: '/', redirect:true })
+    revalidatePath("/")
+    redirect("/")
 }
 
 export const register = async (previousState, formData) => {
@@ -349,6 +351,8 @@ export const login = async (previousState, formData) => {
 
     try {
         await signIn("credentials", { callbackUrl: '/', email, password})
+        revalidatePath("/")
+        redirect("/")
     } catch(err) {
         console.log(err)
         if (err.message.includes("credentials")) {
