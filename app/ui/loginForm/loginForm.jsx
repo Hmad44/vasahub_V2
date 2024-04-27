@@ -2,7 +2,6 @@
 
 import styles from "./loginForm.module.css"
 import { useFormState } from "react-dom"
-import { MemberType, CollegeYear, ShirtSize } from "@prisma/client";
 import { login } from '@/app/lib/action';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -14,7 +13,7 @@ const LoginForm = () => {
     const router = useRouter()
 
     useEffect(() => {
-        state?.success && router.push('/')
+        state?.success && router.push('/login')
     },[state?.success, router])
 
     return (

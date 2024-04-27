@@ -28,7 +28,7 @@ export const authConfig = {
 
             //Only Admin
             if (isOnDashboard && user?.membership_type != MemberType.ADMIN) {
-                return Response.redirect(new URL("/dashboard", request.nextUrl))
+                return false
             }
             //Only Auth
             if (isOnMerchPage && !user) {
