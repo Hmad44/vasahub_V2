@@ -271,7 +271,7 @@ export const updateMerch = async (formData) => {
 
 export const handleLogout = async () => {
     "use server"
-    await signOut()
+    await signOut({ callbackUrl: '/', redirect:true })
 }
 
 export const register = async (previousState, formData) => {
