@@ -39,7 +39,6 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
             credentials: {
                 email: {},
                 password: {},
-                callbackUrl: "/"
             },
             async authorize(credentials) {
                 try {
