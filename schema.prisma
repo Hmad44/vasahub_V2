@@ -52,7 +52,7 @@ model Transactions {
   merch             Merch             @relation(fields: [merch_id], references: [id], onDelete: Restrict)
   merch_id          String
   costPaidInCents   Int
-  item              String
+  createdAt         DateTime            @default(now())
 }
 
 model Merch {

@@ -17,7 +17,7 @@ const PurchasePage = async ({params}) => {
         receipt_email: session.user.email,
         metadata: {
             productID: product.id,
-            email: session.user.email
+            email: session.user.email,
         }
     })
 
