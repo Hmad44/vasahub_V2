@@ -269,23 +269,6 @@ export const updateMerch = async (formData) => {
     redirect("/dashboard/merch")  
 }
 
-export const addTransaction = async (productID, memberID, price) => {
-    try {
-        await prisma.$transaction([
-            prisma.Transactions.create({
-                data: {
-                    member_id: memberID,
-                    merch_id: productID,
-                    costPaidInCents: price,
-                }
-            })
-        ])
-    } catch(err) {
-        console.log(err)
-        throw new Error("Failed to add transaction")
-    }
-}
-
 export const handleLogout = async () => {
     "use server"
     await signOut({ callbackUrl: '/', redirect:true })

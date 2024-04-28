@@ -1,6 +1,6 @@
 "use client"
 
-import { Elements, LinkAuthenticationElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
+import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import styles from "./checkoutForm.module.css"
 import { loadStripe } from "@stripe/stripe-js"
 import Image from "next/image"
@@ -20,23 +20,21 @@ function Form( {costInCents} ) {
     const elements = useElements()
     const [isLoading, setIsLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState()
-    const [email, setEmail] = useState()
-
     async function handleSubmit(e) {
         e.preventDefault()
 
-        if (stripe == null || elements == null || email == null) {
+        if (stripe == null || elements == null) {
             return
         }
 
         setIsLoading(true)
 
         stripe.confirmPayment( { elements, confirmParams: {
-            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/merch/stripe/purchase-success`
+            return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}merch/stripe/purchase-success`
         }}).then(({ error }) => {
             if (error.type === "card_error" || error.type ==="validation_error") {
                 setErrorMessage(error.message)
-            // } else {
+            } else {
                 setErrorMessage("An unknown error occured")
             }
         }).finally(() => setIsLoading(false))
@@ -44,7 +42,6 @@ function Form( {costInCents} ) {
 
     return <form onSubmit={handleSubmit}>
             <PaymentElement />
-            <LinkAuthenticationElement onChange={e => setEmail(e.value.email)}/>
             {errorMessage && (<div className={styles.errorMessage}>{errorMessage}</div>)}
             <button className={styles.purchaseButton} disabled={stripe == null || isLoading}>{isLoading ? "Purchasing..." : `Purchase - ${currencyFormat.format(costInCents/100)}`} </button>
         </form>
