@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import styles from './upcomingCard.module.css'
-import Link from 'next/link'
 
 const UpcomingCard = ({event}) => {
     return (

@@ -10,7 +10,7 @@ export const getAllMembers = async (q, page) => {
                 take: ITEMS_PER_PAGE,
                 orderBy: {
                     profile: {
-                        l_name: 'asc'
+                        l_name: 'desc'
                     }
                 },
                 where: {
@@ -62,7 +62,7 @@ export const getSingleMember = async (id) => {
     }
 }
 
-export const getMemberCount = async (id) => {
+export const getMemberCount = async () => {
     try {
         const member = await prisma.$transaction([
             prisma.Member.count()
@@ -74,7 +74,7 @@ export const getMemberCount = async (id) => {
     }
 }
 
-export const getUnpaidCount = async (id) => {
+export const getUnpaidCount = async () => {
     try {
         const member = await prisma.$transaction([
             prisma.MemberProfile.count({
@@ -155,7 +155,7 @@ export const getAllMerch = async (q, page) => {
             prisma.Merch.count(),
             prisma.Merch.findMany({
                 orderBy: {
-                    createdAt: "asc"
+                    createdAt: "desc"
                 },
                 skip: (ITEMS_PER_PAGE * (page-1)),
                 take: ITEMS_PER_PAGE,
@@ -257,7 +257,7 @@ export const getPreviewTrans = async () => {
         const trans = await prisma.$transaction([
             prisma.Transactions.findMany({
                 orderBy: {
-                    createdAt: 'asc'
+                    createdAt: 'desc'
                 },
                 take: 10,
             })
@@ -276,7 +276,7 @@ export const getAllTrans = async (q, page) => {
             prisma.Transactions.count(),
             prisma.Transactions.findMany({
                 orderBy: {
-                    createdAt: "asc"
+                    createdAt: "desc"
                 },
                 skip: (ITEMS_PER_PAGE * (page-1)),
                 take: ITEMS_PER_PAGE,
