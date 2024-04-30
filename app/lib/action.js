@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { signIn, signOut } from "./auth";
+import { MemberType } from '@prisma/client';
 
 export const addMember = async (previousState, formData) => {
     const { fname, lname, password, studentID, email, membershipType, collegeYear, shirtSize, dueStatus, shirtStatus, major } = Object.fromEntries(formData);
@@ -290,6 +291,10 @@ export const register = async (previousState, formData) => {
 
     if (studentID.length > 10 || studentID.length < 8) {
         return {error: "StudentID is incorrect"}
+    }
+
+    if (membershipType == MemberType.ADMIN) {
+        return {error: "Admin registration is not allowed"}
     }
     
     const salt = await bcrypt.genSalt(10)
