@@ -1,44 +1,54 @@
-.container{
-    background-color: var(--bgSoft);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.title{
-    margin-bottom: 20px;
-    font-weight: 200;
-    color: var(--textSoft);
-}
-
-.table{
-    width: 100%;
-}
-
-.table td{
-    padding: 10px;
-}
-
-.user{
+.container {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-.status{
-    border-radius: 5px;
+.top {
+    display: flex;
+}
+
+.imgContainer {
+    width: 70%;
+    height: 300px;
+    position: relative;
+}
+
+.img {
+    object-fit: cover;
+}
+
+.date {
+    font-size: 12px;
+    margin: auto;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.stock {
+    font-size: 16px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.desc {
+    margin-bottom: 20px;
+    font-weight: 300;
+    color: gray;
+    width: 90%;
+}
+
+.buy {
     padding: 5px;
-    font-size: 14px;
-    color: white;
-}
-
-.pending{
-    background-color: #f7cb7375;
-}
-
-.done{
-    background-color: #afd6ee75;
-}
-
-.canceled{
-    background-color: #f7737375;
+    cursor: pointer;
+    border: none;
+    width: 25%;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #5d57c9;
 }

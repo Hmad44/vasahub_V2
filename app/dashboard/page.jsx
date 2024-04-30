@@ -1,5 +1,6 @@
-import Card from "../ui/dashboard/card/card"
-import Transactions from "../ui/dashboard/transactions/transactions"
+import MemberCountCard from "../ui/dashboard/cards/memberCount/memberCount"
+import UnpaidCountCard from "../ui/dashboard/cards/unpaidCount/unpaidCount"
+import Transactions from "../ui/dashboard/recentTransactions/recentTransactions"
 import RightBar from "../ui/dashboard/rightbar/rightbar"
 import styles from "../ui/dashboard/dashboard.module.css"
 
@@ -8,9 +9,8 @@ const Dashboard = () => {
         <div className={styles.wrapper}>
             <div className={styles.main}>
             <div className={styles.cards}>
-                    <Card />
-                    <Card />
-                    <Card />
+                    <MemberCountCard />
+                    <UnpaidCountCard />
                 </div>
                 <Transactions/>
             </div>

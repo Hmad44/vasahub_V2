@@ -62,6 +62,34 @@ export const getSingleMember = async (id) => {
     }
 }
 
+export const getMemberCount = async (id) => {
+    try {
+        const member = await prisma.$transaction([
+            prisma.Member.count()
+        ])
+        return member[0];
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to find member")
+    }
+}
+
+export const getUnpaidCount = async (id) => {
+    try {
+        const member = await prisma.$transaction([
+            prisma.MemberProfile.count({
+                where: {
+                    due_status: false
+                }
+            })
+        ])
+        return member[0];
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to find member")
+    }
+}
+
 export const getAllEvent = async (q, page) => {
     const ITEMS_PER_PAGE = 2
     try {
@@ -178,5 +206,121 @@ export const getSingleMerch = async (id) => {
     } catch(err) {
         console.log(err)
         throw new Error("Failed to find merch")
+    }
+}
+
+export const checkDuesAndShirtPaid = async (id) => {
+    try {
+        const check = await prisma.$transaction([
+            prisma.Member.findUnique({
+                where: {
+                    id: id
+                },
+                select: {
+                    profile: {
+                        select: {
+                            due_status: true,
+                            shirt_status: true
+                        }
+                    }
+                }
+            })  
+        ])
+        return check[0];
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to find merch")
+    }
+}
+
+export const checkProductType = async (id) => {
+    try {
+        const check = await prisma.$transaction([
+            prisma.Merch.findUnique({
+                where: {
+                    id: id
+                },
+                select: {
+                    type: true
+                }
+            })  
+        ])
+        return check[0].type;
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to find merch")
+    }
+}
+
+export const getPreviewTrans = async () => {
+    try {
+        const trans = await prisma.$transaction([
+            prisma.Transactions.findMany({
+                orderBy: {
+                    createdAt: 'asc'
+                },
+                take: 10,
+                include: {
+                    member: {
+                        include: {
+                            profile: true
+                        }
+                    },
+                    merch: true,
+                }
+            })
+        ])
+        return trans[0];
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to fetch transactions preview")
+    }
+}
+
+export const getAllTrans = async (q, page) => {
+    const ITEMS_PER_PAGE = 2
+    try {
+        const [count, trans] = await prisma.$transaction([
+            prisma.Transactions.count(),
+            prisma.Transactions.findMany({
+                orderBy: {
+                    createdAt: "asc"
+                },
+                skip: (ITEMS_PER_PAGE * (page-1)),
+                take: ITEMS_PER_PAGE,
+                where: {
+                    member: {
+                        profile: {
+                            OR: [
+                                {
+                                    f_name: {
+                                        contains: `%${q}%`,
+                                        mode: 'insensitive'
+                                    }
+                                },
+                                {
+                                    l_name: {
+                                        contains: `%${q}%`,
+                                        mode: 'insensitive'
+                                    }
+                                }
+                            ],
+                        }
+                    }
+                },
+                include: {
+                    member: {
+                        include: {
+                            profile: true
+                        }
+                    },
+                    merch: true,
+                }
+            })
+        ])
+        return [count, trans];
+    } catch(err) {
+        console.log(err)
+        throw new Error("Failed to view transactions")
     }
 }

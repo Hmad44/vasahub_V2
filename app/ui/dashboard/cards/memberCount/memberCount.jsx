@@ -1,16 +1,20 @@
 import { MdSupervisedUserCircle } from 'react-icons/md'
-import styles from './card.module.css'
+import styles from './memberCount.module.css'
+import { getMemberCount } from '@/app/lib/data'
 
-const Card = () => {
+const MemberCountCard = async () => {
+
+    const count = await getMemberCount()
+
     return (
         <div className={styles.container}>
             <MdSupervisedUserCircle size={24}/>
             <div className={styles.texts}>
                 <span className={styles.title}>Total Members</span>
-                <span className={styles.number}>70</span>
+                <span className={styles.number}>{count}</span>
             </div>
         </div>
     )
 }
 
-export default Card
+export default MemberCountCard

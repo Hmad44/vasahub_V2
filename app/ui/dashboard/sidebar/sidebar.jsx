@@ -29,7 +29,7 @@ const menuItems = [
             },
             {
                 title: "Transactions",
-                path: "/dashboard/transcations",
+                path: "/dashboard/transactions",
                 icon: <MdAttachMoney />,
             },
         ],

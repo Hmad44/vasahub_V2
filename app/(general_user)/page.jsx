@@ -9,7 +9,7 @@ const AboutPage = () => {
                 <h1 className={styles.title}>Ole Miss Vietnamese American Student Association</h1>
                 <p className={styles.desc}>
                 The Ole Miss Vietnamese American Student Association (OleVASA) was created in order to promote an understanding of the Vietnamese culture within the university and the community at large, to develop and execute programs to support the interests of the university student bodies, to provide opportunities for greater expression of the Vietnamese culture, and to represent Vietnamese students at the University of Mississippi.</p>
-                <p className={styles.desc}>At the OleVasa Hub website, you can view our regular yearly events and view our upcoming events in the current semester. If you are a current member of the University of Mississippi, you can also create an account and officially join our club.</p>
+                <p className={styles.desc}>At the OleVasa Hub website, you can view our regular yearly events and view our upcoming events in the current semester. If you are a current member of the University of Mississippi and are interested in joining us, you can also create an account and officially join to gain access to our club shirt and merchandise!</p>
                 <div className={styles.buttons}>
                     <Link href="./register">
                         <button className={styles.button}>Register</button>
@@ -22,15 +22,6 @@ const AboutPage = () => {
                     <Link href="https://linktr.ee/ole_vasa">
                         <Image src="https://www.childcareawareky.org/wp-content/uploads/2022/06/Linktree.png" fill className={styles.social}/>
                     </Link>
-                    {/* <Link href="https://www.instagram.com/ole_vasa/">
-                        <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" fill className={styles.social} />
-                    </Link>
-                    <a>
-                        <Image/>
-                    </a>
-                    <a>
-                        <Image/>
-                    </a> */}
                 </div>
             </div>
             <div className={styles.imgContainer}>

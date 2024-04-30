@@ -26,12 +26,12 @@ const UsersPage = async ({searchParams}) => {
                         <td>Email</td>
                         <td>Student ID</td>
                         <td>Due Status</td>
+                        <td>Shirt Status</td>
                         <td>Shirt Size</td>
                         <td>Major</td>
                         <td>College Year</td>
                         <td>Member Role</td>
                         <td>Joined</td>
-                        <td>Updated</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,12 +41,12 @@ const UsersPage = async ({searchParams}) => {
                             <td>{member.email}</td>
                             <td>{member.student_id}</td>
                             <td>{(member.profile.due_status) ? "Paid" : "Unpaid"}</td>
+                            <td>{(member.profile.shirt_status) ? "Paid" : "Unpaid"}</td>
                             <td>{member.profile.shirt_size}</td>
                             <td>{member.profile.major}</td>
                             <td>{member.profile.college_year.charAt(0) + member.profile.college_year.slice(1).toLowerCase()}</td>
                             <td>{member.membership_type.charAt(0) + member.membership_type.slice(1).toLowerCase()}</td>
                             <td>{member.createdAt.toLocaleDateString()}<br/>{member.createdAt.toLocaleTimeString()}</td>
-                            <td>{member.updatedAt.toLocaleDateString()}<br/>{member.updatedAt.toLocaleTimeString()}</td>
                             <td>
                                 <div className={styles.buttons}>
                                     <Link href={`/dashboard/users/${encodeURIComponent(member.id)}`}>

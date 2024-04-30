@@ -11,9 +11,7 @@ const currencyFormat = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 });
   
-
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
-
 
 function Form( {costInCents} ) {
     const stripe = useStripe()
@@ -47,7 +45,8 @@ function Form( {costInCents} ) {
         </form>
 }
 
-const CheckoutForm = ({ product, clientSecret}) => {
+const CheckoutForm = async ({ product, clientSecret}) => {
+
     return (
         <>
         <div className={styles.container}>

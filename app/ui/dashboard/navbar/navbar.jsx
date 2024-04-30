@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.title}>{pathname.split("/").pop()}</div>
+            <div className={styles.title}>{pathname.split("/")[2] ? pathname.split("/")[2] : "Dashboard"}</div>
             <div className={styles.menu}>
                 {/* <div className={styles.search}>
                     <MdSearch/>

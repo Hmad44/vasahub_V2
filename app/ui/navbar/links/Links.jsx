@@ -19,14 +19,6 @@ const links = [
         title: "Upcoming",
         path: "/upcoming"
     },
-    {
-        title: "Merch",
-        path: "/merch"
-    },
-    {
-        title: "Register",
-        path: "/register"
-    },
 ]
 
 const Links = ({session}) => {
@@ -37,8 +29,11 @@ const Links = ({session}) => {
         <div className={styles.container}>
             <div className={styles.links}>
                 {links.map((link=> (<NavLink item={link} key={link.title} />)))}
+                {session?.user ? null : (<NavLink item={{title: "Register", path: "/register"}}/>)}
                 {session?.user ? (
                     <>
+                        {session.user?.membership_type === MemberType.ADMIN && (<NavLink item={{title: "Merch", path: "/merch"}}/>)}
+                        {session.user?.membership_type === MemberType.GENERAL && (<NavLink item={{title: "Merch", path: "/merch"}}/>)}
                         {session.user?.membership_type === MemberType.ADMIN && (<NavLink item={{title: "Admin", path: "/dashboard"}}/>)}
                         <form action={handleLogout}>
                             <button className={styles.logout}>Logout</button>
