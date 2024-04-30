@@ -12,11 +12,11 @@ const links = [
         path: "/"
     },
     {
-        title: "Regular Events",
-        path: "/events"
+        title: "Yearly Events",
+        path: "/regular"
     },
     {
-        title: "Upcoming",
+        title: "Upcoming Events",
         path: "/upcoming"
     },
 ]
