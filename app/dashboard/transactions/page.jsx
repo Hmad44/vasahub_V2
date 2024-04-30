@@ -13,6 +13,7 @@ const TransactionsPage = async({searchParams}) => {
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
     const [count, trans] = await getAllTrans(q, page)
+   
 
     return (
         <div className={styles.container}>
@@ -31,8 +32,8 @@ const TransactionsPage = async({searchParams}) => {
                 <tbody>
                     {trans.map(tran => (
                     <tr key={trans.id}>
-                        <td>{tran.member.profile.f_name} {tran.member.profile.l_name}</td>
-                        <td>{tran.merch.title}</td>
+                        <td>{tran.member_name}</td>
+                        <td>{tran.merch_title}</td>
                         <td>{currencyFormat.format(tran.costPaidInCents/100)}</td>
                         <td>{tran.createdAt.toLocaleDateString()}<br/>{tran.createdAt.toLocaleTimeString()}</td>
                     </tr>

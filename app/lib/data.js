@@ -260,14 +260,6 @@ export const getPreviewTrans = async () => {
                     createdAt: 'asc'
                 },
                 take: 10,
-                include: {
-                    member: {
-                        include: {
-                            profile: true
-                        }
-                    },
-                    merch: true,
-                }
             })
         ])
         return trans[0];
@@ -289,33 +281,21 @@ export const getAllTrans = async (q, page) => {
                 skip: (ITEMS_PER_PAGE * (page-1)),
                 take: ITEMS_PER_PAGE,
                 where: {
-                    member: {
-                        profile: {
-                            OR: [
-                                {
-                                    f_name: {
-                                        contains: `%${q}%`,
-                                        mode: 'insensitive'
-                                    }
-                                },
-                                {
-                                    l_name: {
-                                        contains: `%${q}%`,
-                                        mode: 'insensitive'
-                                    }
-                                }
-                            ],
+                    OR: [
+                        {
+                            member_name: {
+                                contains: `%${q}%`,
+                                mode: 'insensitive'
+                            }
+                        },
+                        {
+                            merch_title: {
+                                contains: `%${q}%`,
+                                mode: 'insensitive'
+                            }
                         }
-                    }
+                    ],
                 },
-                include: {
-                    member: {
-                        include: {
-                            profile: true
-                        }
-                    },
-                    merch: true,
-                }
             })
         ])
         return [count, trans];

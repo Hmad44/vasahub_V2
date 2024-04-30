@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache'
 import { signIn, signOut } from "./auth";
 
 export const addMember = async (previousState, formData) => {
-    const { fname, lname, password, studentID, email, membershipType, collegeYear, shirtSize, dueStatus, major } = Object.fromEntries(formData);
+    const { fname, lname, password, studentID, email, membershipType, collegeYear, shirtSize, dueStatus, shirtStatus, major } = Object.fromEntries(formData);
     
     if (studentID.length > 10 || studentID.length < 8) {
         return {error: "StudentID is incorrect"}
@@ -15,7 +15,9 @@ export const addMember = async (previousState, formData) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashedPwd = await bcrypt.hash(password, salt)
-    const due_status = (dueStatus == "true") ? true : false
+    
+    const due_status_bool = (dueStatus === 'true')
+    const shirt_status_bool = (shirtStatus === 'true')
 
     try {
         const emailCheck = await prisma.$transaction([
@@ -62,7 +64,8 @@ export const addMember = async (previousState, formData) => {
                     major: major,
                     college_year: collegeYear,
                     shirt_size: shirtSize,
-                    due_status: due_status,
+                    due_status: due_status_bool,
+                    shirt_status: shirt_status_bool
                 }
             })
         ])
@@ -92,7 +95,7 @@ export const deleteMember = async (formData) => {
 }
 
 export const updateMember = async (formData) => {
-    const { id, fname, lname, password, studentID, email, membership_type, college_year, shirt_size, due_status, major } = Object.fromEntries(formData);
+    const { id, fname, lname, password, studentID, email, membership_type, college_year, shirt_size, due_status, shirt_status, major } = Object.fromEntries(formData);
 
     const salt = await bcrypt.genSalt(10)
     let hashedPwd = await bcrypt.hash(password, salt)
@@ -102,6 +105,7 @@ export const updateMember = async (formData) => {
     }
 
     let due_status_bool = (due_status === 'true')
+    let shirt_status_bool = (shirt_status === 'true')
 
     try {
         await prisma.$transaction([
@@ -119,6 +123,7 @@ export const updateMember = async (formData) => {
                                 college_year: college_year,
                                 shirt_size: shirt_size,
                                 due_status: due_status_bool,
+                                shirt_status: shirt_status_bool
                             }
                         }
                     },

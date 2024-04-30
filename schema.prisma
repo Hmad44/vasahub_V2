@@ -47,8 +47,8 @@ model Event {
 
 model Transactions {
   id                String            @id @default(uuid())
-  member_id         String
-  merch_id          String
+  member_name       String
+  merch_title       String
   costPaidInCents   Int
   createdAt         DateTime            @default(now())
 }

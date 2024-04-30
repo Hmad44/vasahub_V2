@@ -52,6 +52,11 @@ const AddUserPage = () => {
                     <option value={false}>Unpaid</option>
                     <option value={true}>Paid</option>
                 </select>
+                <select name="shirtStatus">
+                    <option value="" disabled>Paid Shirt or Not</option>
+                    <option value={false}>Unpaid</option>
+                    <option value={true}>Paid</option>
+                </select>
                 <input type="text" placeholder='Major' name='major' required />
                 {state?.error}
                 <button type="submit">Submit</button>

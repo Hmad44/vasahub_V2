@@ -18,6 +18,7 @@ const ViewMerchPage = async ({params}) => {
                 <select name='type'>
                     <option value={MerchType.MERCH} selected={merch.type == MerchType.MERCH}>Merchandise</option>
                     <option value={MerchType.DUES} selected={merch.type == MerchType.DUES}>Dues</option>
+                    <option value={MerchType.SHIRT} selected={merch.type == MerchType.SHIRT}>Shirt</option>
                 </select>
                 <label>Availability</label>
                     <select name="isAvailable" id="isAvailable">

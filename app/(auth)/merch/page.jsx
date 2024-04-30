@@ -12,6 +12,7 @@ const MerchPage = async () => {
 
     return (
         <div className={styles.container}>
+            {merchs[0] == undefined ? <h2>Nothing yet! Stay Tuned</h2> : ""}
             {merchs.map(merch => (
                 <div className={styles.merch} key={merch.id}>
                     <MerchCard merch={merch} due_status={check.profile.due_status} shirt_status={check.profile.shirt_status}/>

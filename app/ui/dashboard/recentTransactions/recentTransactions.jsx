@@ -25,8 +25,8 @@ const Transactions = async () => {
                 <tbody>
                     {transactions.map(transaction => (
                     <tr key={transaction.id}>
-                        <td>{transaction.member.profile.f_name} {transaction.member.profile.l_name}</td>
-                        <td>{transaction.merch.title}</td>
+                        <td>{transaction.member_name}</td>
+                        <td>{transaction.merch_title}</td>
                         <td>{currencyFormat.format(transaction.costPaidInCents/100)}</td>
                         <td>{transaction.createdAt.toLocaleDateString()}<br/>{transaction.createdAt.toLocaleTimeString()}</td>
                     </tr>

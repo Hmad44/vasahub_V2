@@ -50,6 +50,11 @@ const ViewUserPage = async ({params}) => {
                         <option value={false} selected={member.profile.due_status == false}>Unpaid</option>
                         <option value={true} selected={member.profile.due_status == true}>Paid</option>
                     </select>
+                <label>Shirt Paid or Not</label>
+                <select name="shirt_status" id="shirt_status">
+                    <option value={false} selected={member.profile.shirt_status == false}>Unpaid</option>
+                    <option value={true} selected={member.profile.shirt_status == true}>Paid</option>
+                </select>
                 <button>Update</button>
             </form>
         </div>

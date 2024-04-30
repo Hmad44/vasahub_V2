@@ -12,6 +12,7 @@ const AddMerchPage = () => {
                     <option value="" disabled>Choose type of product</option>
                     <option value={MerchType.MERCH}>Merchandise</option>
                     <option value={MerchType.DUES}>Dues</option>
+                    <option value={MerchType.SHIRT}>Shirt</option>
                 </select>
                 <select name='isAvailable'>
                     <option value="" disabled>Choose Availability</option>

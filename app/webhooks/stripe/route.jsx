@@ -68,11 +68,34 @@ export async function POST(req) {
             ])
         }
 
+        const member_name = await prisma.Member.findUnique({
+            where: {
+                id: memberID
+            },
+            select: {
+                profile: {
+                    select: {
+                        f_name: true,
+                        l_name: true
+                    }
+                }
+            }
+        })
+
+        const product_name = await prisma.Merch.findUnique({
+            where: {
+                id: productID
+            },
+            select: {
+                title: true
+            }
+        })
+
         await prisma.$transaction([
             prisma.Transactions.create({
                 data: {
-                    member_id: memberID,
-                    merch_id: productID,
+                    member_name: (member_name.profile.f_name + " " + member_name.profile.l_name),
+                    merch_title: product_name.title,
                     costPaidInCents: pricePaidInCents,
                 }
             })
