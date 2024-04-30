@@ -25,7 +25,7 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className={styles.imgContainer}>
-                <Image src="https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/326712501_1346585702783845_166318177265216819_n.png?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=5-hISFaiqhUAb6QO0fA&_nc_ht=scontent-atl3-1.xx&oh=00_AfCI6j7xYfylu8p11eeDLBiCqe4s2-49Rvzg9O9QsuvD1Q&oe=66223F3C" alt="Ole Vasa Logo" layout="responsive" width={200} height={200} className={styles.logoImg}/>
+                <Image src="/vasalogo.png" alt="Ole Vasa Logo" layout="responsive" width={200} height={200} className={styles.logoImg}/>
             </div>  
         </div>
     )
